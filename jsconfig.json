@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": ["src", "../blended_whith_Alena_3_4_5_groups/src/utils"]
+}
