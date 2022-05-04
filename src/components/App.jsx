@@ -9,27 +9,15 @@ import { lazy, Suspense } from 'react';
 // import Reviews from './Reviews/Reviews';
 // import Page404 from './Page404/Page404';
 
-const Layout = lazy(() =>
-  import('./Layout/Layout.jsx' /* webpackChunkName: Layout */)
-);
-const HomePage = lazy(() =>
-  import('./HomePage/HomePage.jsx' /* webpackChunkName: HomePage */)
-);
-const MoviesPage = lazy(() =>
-  import('./MoviesPage/MoviesPage.jsx' /* webpackChunkName: MoviesPage */)
-);
+const Layout = lazy(() => import('./Layout/Layout.jsx'));
+const HomePage = lazy(() => import('./HomePage/HomePage.jsx'));
+const MoviesPage = lazy(() => import('./MoviesPage/MoviesPage.jsx'));
 const MovieDetailsPage = lazy(() =>
-  import(
-    './MovieDetailsPage/MovieDetailsPage.jsx' /* webpackChunkName: MovieDetailsPage */
-  )
+  import('./MovieDetailsPage/MovieDetailsPage.jsx')
 );
-const Cast = lazy(() => import('./Cast/Cast.jsx' /* webpackChunkName: Cast */));
-const Reviews = lazy(() =>
-  import('./Reviews/Reviews.jsx' /* webpackChunkName: Reviews */)
-);
-const Page404 = lazy(() =>
-  import('./Page404/Page404.jsx' /* webpackChunkName: Page404 */)
-);
+const Cast = lazy(() => import('./Cast/Cast.jsx'));
+const Reviews = lazy(() => import('./Reviews/Reviews.jsx'));
+const Page404 = lazy(() => import('./Page404/Page404.jsx'));
 const App = () => {
   return (
     <Suspense fallback={<div>Loading</div>}>
