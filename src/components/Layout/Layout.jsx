@@ -1,11 +1,43 @@
-import { NavLink, Outlet } from 'react-router-dom';
-export const Layout = () => {
+import { Container } from 'components/App.styled';
+import {
+  Header,
+  Homepage,
+  Footer,
+  NavHomepage,
+  NavMovie,
+  Navigation,
+  MainContent,
+} from './Layout.styled';
+import { Outlet } from 'react-router-dom';
+const Layout = () => {
   return (
     <>
-      <h1>Homepage</h1>
-      <NavLink to="/">Homepage</NavLink>
-      <NavLink to="/movies">Movies</NavLink>
-      <Outlet />
+      <Header>
+        <Container>
+          <Homepage to="/">Movie Site</Homepage>
+          <Navigation>
+            <NavHomepage
+              to="/"
+              className={({ isActive }) => (isActive ? 'active' : '')}
+            >
+              Homepage
+            </NavHomepage>
+            <NavMovie to="/movies">Movies</NavMovie>
+          </Navigation>
+        </Container>
+      </Header>
+      <MainContent>
+        <Container>
+          <Outlet />
+        </Container>
+      </MainContent>
+      <Footer>
+        <Container>
+          <div>footer</div>
+        </Container>
+      </Footer>
     </>
   );
 };
+
+export default Layout;

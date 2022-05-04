@@ -1,4 +1,5 @@
 @import-normalize; /* bring in normalize.css styles */
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&display=swap');
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -19,9 +20,10 @@ html {
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,'Oleo Script Swash Caps',
+    cursive;
   color: #212121;
-  background-color: #fff;
+  background-color: #e4fffee3;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -31,6 +33,8 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+
 
 /*
  * Стили компонента App

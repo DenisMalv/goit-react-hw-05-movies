@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 
-export const MainContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 16px;
-  padding-bottom: 24px;
+export const Container = styled.div`
+  width: 100%;
+  max-width: 1230px;
+  padding: 0 30px;
+
+  margin: 0 auto;
 `;
