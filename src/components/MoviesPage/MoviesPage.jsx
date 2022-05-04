@@ -34,7 +34,7 @@ const MoviesPage = () => {
     }
     fetchMovie(searchQueryGet).then(({ results }) => {
       console.log(results);
-      setResponseFilm([...results, { query: searchQueryGet }]);
+      setResponseFilm(results);
       setInputValue(searchQueryGet);
     });
   }, [searchQueryGet]);

@@ -30,13 +30,13 @@ const MovieDetailsPage = () => {
     <>
       {film && (
         <>
-          <div>
+          <div style={{ display: 'flex' }}>
             <img
               src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
               alt="poster"
               width={300}
             />
-            <div>
+            <div style={{ padding: 10 }}>
               <p>Rating : {film.vote_average}</p>
 
               <p>Title : {film.title}</p>
@@ -48,16 +48,47 @@ const MovieDetailsPage = () => {
                 <p>Genres:</p>
                 <p>{film.genres.map(e => e.name + ', ')}</p>
               </div>
-              <Link to={`${backLinkURL}`}>Go back</Link>
+              <Link
+                to={`${backLinkURL}`}
+                style={{
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                  backgroundColor: '#24e3f2',
+                  padding: 10,
+                  borderRadius: 5,
+                }}
+              >
+                Go back
+              </Link>
             </div>
           </div>
 
           <div>
             <p>More information</p>
-            <NavLink to="cast" state={{ from: location.pathname }}>
+            <NavLink
+              to="cast"
+              state={{ from: location.pathname }}
+              style={{
+                textDecoration: 'none',
+                display: 'inline-block',
+                backgroundColor: '#24e3f2',
+                padding: 10,
+                borderRadius: 5,
+              }}
+            >
               Casts
             </NavLink>
-            <NavLink to="reviews" state={{ from: location.pathname }}>
+            <NavLink
+              to="reviews"
+              state={{ from: location.pathname }}
+              style={{
+                textDecoration: 'none',
+                display: 'inline-block',
+                backgroundColor: '#24e3f2',
+                padding: 10,
+                borderRadius: 5,
+              }}
+            >
               Reviews
             </NavLink>
             <Outlet />
