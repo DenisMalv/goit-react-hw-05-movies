@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchMovie } from 'services/api';
 import { BiSearchAlt } from 'react-icons/bi';
@@ -20,56 +20,64 @@ import {
 
 const MoviesPage = () => {
   const [searchQuery, setSearchQuery] = useSearchParams('');
-  const [inputQuery, setInputQuery] = useState('');
+  const searchQueryGet = searchQuery.get('query');
+
+  const [inputValue, setInputValue] = useState('');
   const [responseFilm, setResponseFilm] = useState([]);
 
   const location = useLocation();
-  console.log('searchQuery.get(`query`)', searchQuery.get('query'));
-  console.log('location:', location);
 
   useEffect(() => {
-    if (!searchQuery.get('query')) {
+    if (!searchQueryGet) {
+      // setInputValue('');
       return;
     }
-    fetchMovie(searchQuery.get('query')).then(({ results }) => {
+    fetchMovie(searchQueryGet).then(({ results }) => {
       console.log(results);
-      setResponseFilm(results);
+      setResponseFilm([...results, { query: searchQueryGet }]);
+      setInputValue(searchQueryGet);
     });
-  }, [searchQuery]);
+  }, [searchQueryGet]);
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(inputQuery);
-    if (inputQuery === '') {
+    const form = event.target;
+    const query = form.query.value;
+    if (query === '') {
       console.log('pusto');
       return;
     }
-    setSearchQuery({ query: inputQuery });
-    setInputQuery('');
+    setSearchQuery({ query: query });
   };
 
-  const handleInputEvent = event => {
-    const { value } = event.currentTarget;
-    setInputQuery(value);
+  const handleInputChange = event => {
+    setInputValue(event.target.value);
   };
+  console.log(searchQuery);
   return (
     <>
       <Form action="" onSubmit={handleSubmit}>
         <InputLabel>
-          <SearchInput type="text" name="query" onChange={handleInputEvent} />
+          <SearchInput
+            type="text"
+            name="query"
+            onChange={handleInputChange}
+            value={inputValue}
+          />
         </InputLabel>
         <SearchButton type="submit">
           <BiSearchAlt size={24} />
         </SearchButton>
       </Form>
-      {responseFilm.length > 0 && (
+      {!searchQueryGet && <p>Please enter search movie text</p>}
+      {searchQueryGet && (
         <>
           <MoviePageList>
             {responseFilm.map(searchFilm => (
               <Film key={searchFilm.id}>
                 <FilmLink
                   to={`/movies/${searchFilm.id}`}
-                  state={{ from: location.pathname }}
+                  state={{ from: location.pathname + location.search }}
                 >
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${searchFilm.poster_path}`}

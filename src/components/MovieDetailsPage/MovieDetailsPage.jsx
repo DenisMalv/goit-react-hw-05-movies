@@ -12,7 +12,6 @@ const MovieDetailsPage = () => {
 
   useEffect(() => {
     fetchMovieDetails(movieId).then(res => {
-      console.log(res);
       console.log('movieId:', movieId);
       setFilm(res);
     });
@@ -31,23 +30,28 @@ const MovieDetailsPage = () => {
     <>
       {film && (
         <>
-          <div>'full card film'</div>
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
-            alt="poster"
-            width={200}
-          />
-          <span>Rating : {film.vote_average}</span>
-          <Link to={`${backLinkURL}`}>Go back</Link>
-          <p>{film.title}</p>
           <div>
-            <p>Overviev:</p>
-            <p>{film.overview}</p>
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+              alt="poster"
+              width={300}
+            />
+            <div>
+              <p>Rating : {film.vote_average}</p>
+
+              <p>Title : {film.title}</p>
+              <div>
+                <p>Overviev : </p>
+                <p>{film.overview}</p>
+              </div>
+              <div>
+                <p>Genres:</p>
+                <p>{film.genres.map(e => e.name + ', ')}</p>
+              </div>
+              <Link to={`${backLinkURL}`}>Go back</Link>
+            </div>
           </div>
-          <div>
-            <p>Genres:</p>
-            <p>{film.genres.map(e => e.name)}</p>
-          </div>
+
           <div>
             <p>More information</p>
             <NavLink to="cast" state={{ from: location.pathname }}>

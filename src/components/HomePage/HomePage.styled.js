@@ -37,6 +37,7 @@ export const FilmDescriptionContainer = styled.div`
   align-items: center;
   gap: 10px;
   height: 80px;
+  width: 100%;
 `;
 
 export const FilmRating = styled.p`

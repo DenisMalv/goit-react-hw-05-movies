@@ -75,4 +75,5 @@ export const SearchInput = styled.input`
 
 export const InputLabel = styled.label`
   width: 100%;
+  background-color: #a0aead00;
 `;

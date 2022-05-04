@@ -9,6 +9,7 @@ import {
   MainContent,
 } from './Layout.styled';
 import { Outlet } from 'react-router-dom';
+
 const Layout = () => {
   return (
     <>
@@ -16,12 +17,7 @@ const Layout = () => {
         <Container>
           <Homepage to="/">Movie Site</Homepage>
           <Navigation>
-            <NavHomepage
-              to="/"
-              className={({ isActive }) => (isActive ? 'active' : '')}
-            >
-              Homepage
-            </NavHomepage>
+            <NavHomepage to="/">Homepage</NavHomepage>
             <NavMovie to="/movies">Movies</NavMovie>
           </Navigation>
         </Container>

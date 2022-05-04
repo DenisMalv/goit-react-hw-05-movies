@@ -49,6 +49,7 @@ export const NavHomepage = styled(NavLink)`
   }
   &.active {
     color: #00cdd5;
+    pointer-events: none;
   }
 `;
 
@@ -65,6 +66,7 @@ export const NavMovie = styled(NavLink)`
   }
   &.active {
     color: #00cdd5;
+    pointer-events: none;
   }
 `;
 
