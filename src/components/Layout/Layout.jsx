@@ -9,6 +9,8 @@ import {
   MainContent,
 } from './Layout.styled';
 import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
+import Loader from 'components/Loader/Loader';
 
 const Layout = () => {
   return (
@@ -24,7 +26,9 @@ const Layout = () => {
       </Header>
       <MainContent>
         <Container>
-          <Outlet />
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
         </Container>
       </MainContent>
       <Footer>

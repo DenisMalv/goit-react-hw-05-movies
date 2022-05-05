@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
 import Layout from './Layout/Layout';
+import Loader from './Loader/Loader';
 // import HomePage from './HomePage/HomePage';
 // import MoviesPage from './MoviesPage/MoviesPage';
 // import MovieDetailsPage from './MovieDetailsPage/MovieDetailsPage';
@@ -20,7 +21,7 @@ const Reviews = lazy(() => import('./Reviews/Reviews.jsx'));
 const Page404 = lazy(() => import('./Page404/Page404.jsx'));
 const App = () => {
   return (
-    <Suspense fallback={<Layout />}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
