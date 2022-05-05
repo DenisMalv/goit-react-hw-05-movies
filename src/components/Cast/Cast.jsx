@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../../services/api';
 
 import { CastList } from './Cast.styled';
 
 const Cast = () => {
   const { movieId } = useParams();
+  const location = useLocation();
+
   const [filmCasts, setFilmCasts] = useState(null);
+
   useEffect(() => {
     fetchMovieDetails(movieId, 'credits').then(({ cast }) => {
-      console.log(cast);
       setFilmCasts(cast);
     });
   }, [movieId]);
-  console.log(movieId);
+
+  console.log('location on Cast: ', location);
   return (
     <>
       {filmCasts && (

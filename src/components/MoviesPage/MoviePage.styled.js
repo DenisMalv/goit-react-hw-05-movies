@@ -5,6 +5,7 @@ export const MoviePageList = styled.ul`
   grid-template-columns: 1fr;
   grid-gap: 16px;
   padding-bottom: 24px;
+  margin: 0;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: baseline;
@@ -16,33 +17,31 @@ export const Form = styled.form`
   align-items: center;
   width: 100%;
   max-width: 600px;
-  background: rgb(215, 254, 255);
-  background: linear-gradient(
-    0deg,
-    rgba(215, 254, 255, 0) 0%,
-    rgba(69, 69, 69, 0.5) 50%,
-    rgba(215, 254, 255, 0) 100%
-  );
-  margin: 0 auto;
+  background: rgb(137 137 137);
+  /* background: linear-gradient( 0deg, rgba(215, 254, 255, 0) 0%, rgba(69, 69, 69, 0.5) 50%, rgba(215, 254, 255, 0) 100% ); */
+  margin: 0 auto 20px;
   border-radius: 9px;
   overflow: hidden;
+  box-shadow: 0px 0px 7px 8px rgb(137 137 137);
+  height: 24px;
 `;
 export const SearchButton = styled.button`
   display: inline-block;
+  color:#282828;
   width: 48px;
   height: 48px;
   border: 0;
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.6;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition:  color 550ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 
   cursor: pointer;
   outline: none;
   position: relative;
   background-color: #a0aead00;
   :hover {
-    opacity: 1;
+    color: #00cdd5;
   }
   label {
     display: block;
@@ -60,7 +59,7 @@ export const SearchButton = styled.button`
 export const SearchInput = styled.input`
   display: inline-block;
   width: 100%;
-  font: Roboto;
+  font-family: Roboto;
   font-size: 20px;
   border: none;
   outline: none;

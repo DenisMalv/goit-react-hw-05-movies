@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
-// import Layout from './Layout/Layout';
+import Layout from './Layout/Layout';
 // import HomePage from './HomePage/HomePage';
 // import MoviesPage from './MoviesPage/MoviesPage';
 // import MovieDetailsPage from './MovieDetailsPage/MovieDetailsPage';
@@ -9,7 +9,7 @@ import { lazy, Suspense } from 'react';
 // import Reviews from './Reviews/Reviews';
 // import Page404 from './Page404/Page404';
 
-const Layout = lazy(() => import('./Layout/Layout.jsx'));
+// const Layout = lazy(() => import('./Layout/Layout.jsx'));
 const HomePage = lazy(() => import('./HomePage/HomePage.jsx'));
 const MoviesPage = lazy(() => import('./MoviesPage/MoviesPage.jsx'));
 const MovieDetailsPage = lazy(() =>
@@ -20,7 +20,7 @@ const Reviews = lazy(() => import('./Reviews/Reviews.jsx'));
 const Page404 = lazy(() => import('./Page404/Page404.jsx'));
 const App = () => {
   return (
-    <Suspense fallback={<div>Loading</div>}>
+    <Suspense fallback={<Layout />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />

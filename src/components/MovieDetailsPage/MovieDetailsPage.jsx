@@ -1,12 +1,22 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchMovieDetails } from '../../services/api';
 
+import {
+  DetailFilmCardMain,
+  FilmPoster,
+  FilmMainInfo,
+  FilmInfoName,
+  BackLink,
+  MoreInformationFilmCard,
+  MoreInformationButton,
+} from './MovieDetailsPage.styled';
+
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  console.log(`location`, location);
+
   const [film, setFilm] = useState(null);
   const [backLinkURL, setBackLinkURL] = useState(null);
 
@@ -26,73 +36,57 @@ const MovieDetailsPage = () => {
     }
     setBackLinkURL(location?.state?.from ?? `/movies?query=${film.title}`);
   }, [backLinkURL, film, location?.state?.from]);
+
+  console.log('location on movieDetailsPage: ', location);
   return (
     <>
       {film && (
         <>
-          <div style={{ display: 'flex' }}>
-            <img
+          <DetailFilmCardMain>
+            <FilmPoster
               src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
-              alt="poster"
-              width={300}
+              alt={film.title}
             />
-            <div style={{ padding: 10 }}>
-              <p>Rating : {film.vote_average}</p>
-
-              <p>Title : {film.title}</p>
-              <div>
-                <p>Overviev : </p>
-                <p>{film.overview}</p>
-              </div>
-              <div>
-                <p>Genres:</p>
-                <p>{film.genres.map(e => e.name + ', ')}</p>
-              </div>
-              <Link
-                to={`${backLinkURL}`}
-                style={{
-                  textDecoration: 'none',
-                  display: 'inline-block',
-                  backgroundColor: '#24e3f2',
-                  padding: 10,
-                  borderRadius: 5,
-                }}
-              >
-                Go back
-              </Link>
+            <div>
+              <table style={{ padding: 10 }}>
+                <FilmMainInfo>
+                  <tr>
+                    <FilmInfoName>Rating : </FilmInfoName>
+                    <td>{film.vote_average}</td>
+                  </tr>
+                  <tr>
+                    <FilmInfoName>Title : </FilmInfoName>
+                    <td>{film.title}</td>
+                  </tr>
+                  <tr>
+                    <FilmInfoName>Genres:</FilmInfoName>
+                    <td>{film.genres.map(e => e.name + ', ')}</td>
+                  </tr>
+                  <tr>
+                    <FilmInfoName>Overviev :</FilmInfoName>
+                    <td>{film.overview}</td>
+                  </tr>
+                </FilmMainInfo>
+              </table>
+              <BackLink to={`${backLinkURL}`}>Go back</BackLink>
             </div>
-          </div>
+          </DetailFilmCardMain>
 
-          <div>
-            <p>More information</p>
-            <NavLink
+          <MoreInformationFilmCard>
+            <MoreInformationButton
               to="cast"
-              state={{ from: location.pathname }}
-              style={{
-                textDecoration: 'none',
-                display: 'inline-block',
-                backgroundColor: '#24e3f2',
-                padding: 10,
-                borderRadius: 5,
-              }}
+              state={{ from: `/movies?query=${film.title}` }}
             >
               Casts
-            </NavLink>
-            <NavLink
+            </MoreInformationButton>
+            <MoreInformationButton
               to="reviews"
-              state={{ from: location.pathname }}
-              style={{
-                textDecoration: 'none',
-                display: 'inline-block',
-                backgroundColor: '#24e3f2',
-                padding: 10,
-                borderRadius: 5,
-              }}
+              state={{ from: `/movies?query=${film.title}` }}
             >
               Reviews
-            </NavLink>
+            </MoreInformationButton>
             <Outlet />
-          </div>
+          </MoreInformationFilmCard>
         </>
       )}
     </>

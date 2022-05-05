@@ -29,11 +29,9 @@ const MoviesPage = () => {
 
   useEffect(() => {
     if (!searchQueryGet) {
-      // setInputValue('');
       return;
     }
     fetchMovie(searchQueryGet).then(({ results }) => {
-      console.log(results);
       setResponseFilm(results);
       setInputValue(searchQueryGet);
     });
@@ -53,10 +51,12 @@ const MoviesPage = () => {
   const handleInputChange = event => {
     setInputValue(event.target.value);
   };
+
   console.log(searchQuery);
+  console.log('location on MoviesPage: ', location);
   return (
     <>
-      <Form action="" onSubmit={handleSubmit}>
+      <Form action="" onSubmit={handleSubmit} autoComplete="off">
         <InputLabel>
           <SearchInput
             type="text"
@@ -77,12 +77,15 @@ const MoviesPage = () => {
               <Film key={searchFilm.id}>
                 <FilmLink
                   to={`/movies/${searchFilm.id}`}
-                  state={{ from: location.pathname + location.search }}
+                  state={{
+                    from: location.pathname + location.search,
+                  }}
                 >
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${searchFilm.poster_path}`}
                     alt={searchFilm.title}
                     width="100%"
+                    query={location.search}
                   />
                   <FilmDescriptionContainer>
                     <FilmTitle>{searchFilm.title}</FilmTitle>
