@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
-import { useBackLink } from 'hooks/useBackLink';
-import { useFetchMovieCard } from 'hooks/useFetchMovieCard';
+import { useEffect, useState } from 'react';
+import { fetchMovieDetails } from '../../services/api';
 
 import {
   DetailFilmCardMain,
@@ -17,36 +17,54 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const location = useLocation();
 
-  const [movieCard] = useFetchMovieCard(null, movieId);
-  const [backLinkURL] = useBackLink(null, movieCard, location);
+  const [film, setFilm] = useState(null);
+  const [backLinkURL, setBackLinkURL] = useState(null);
 
+  useEffect(() => {
+    fetchMovieDetails(movieId).then(res => {
+      console.log('movieId:', movieId);
+      setFilm(res);
+    });
+  }, [movieId]);
+
+  useEffect(() => {
+    if (backLinkURL) {
+      return;
+    }
+    if (!film) {
+      return;
+    }
+    setBackLinkURL(location?.state?.from ?? `/movies?query=${film.title}`);
+  }, [backLinkURL, film, location?.state?.from]);
+
+  console.log('location on movieDetailsPage: ', location);
   return (
     <>
-      {movieCard && (
+      {film && (
         <>
           <DetailFilmCardMain>
             <FilmPoster
-              src={`https://image.tmdb.org/t/p/w500/${movieCard.poster_path}`}
-              alt={movieCard.title}
+              src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+              alt={film.title}
             />
             <div>
               <table style={{ padding: 10 }}>
                 <FilmMainInfo>
                   <tr>
                     <FilmInfoName>Rating : </FilmInfoName>
-                    <td>{movieCard.vote_average}</td>
+                    <td>{film.vote_average}</td>
                   </tr>
                   <tr>
                     <FilmInfoName>Title : </FilmInfoName>
-                    <td>{movieCard.title}</td>
+                    <td>{film.title}</td>
                   </tr>
                   <tr>
                     <FilmInfoName>Genres:</FilmInfoName>
-                    <td>{movieCard.genres.map(e => e.name + ', ')}</td>
+                    <td>{film.genres.map(e => e.name + ', ')}</td>
                   </tr>
                   <tr>
                     <FilmInfoName>Overviev :</FilmInfoName>
-                    <td>{movieCard.overview}</td>
+                    <td>{film.overview}</td>
                   </tr>
                 </FilmMainInfo>
               </table>
@@ -57,13 +75,13 @@ const MovieDetailsPage = () => {
           <MoreInformationFilmCard>
             <MoreInformationButton
               to="cast"
-              state={{ from: `/movies?query=${movieCard.title}` }}
+              state={{ from: `/movies?query=${film.title}` }}
             >
               Casts
             </MoreInformationButton>
             <MoreInformationButton
               to="reviews"
-              state={{ from: `/movies?query=${movieCard.title}` }}
+              state={{ from: `/movies?query=${film.title}` }}
             >
               Reviews
             </MoreInformationButton>

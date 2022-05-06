@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import { useMovies } from 'hooks/useMovies';
+import { useEffect, useState } from 'react';
+import { fetchTrandingMovies } from 'services/api';
 
 import {
   HomePageList,
@@ -11,9 +12,11 @@ import {
 } from './HomePage.styled';
 
 const HomePage = () => {
-  const [movies] = useMovies([]);
+  const [movies, setMovies] = useState([]);
   const location = useLocation();
-
+  useEffect(() => {
+    fetchTrandingMovies().then(({ results }) => setMovies(results));
+  }, []);
   return (
     <>
       <HomePageList>

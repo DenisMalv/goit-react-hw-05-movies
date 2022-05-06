@@ -1,7 +1,7 @@
-import { Outlet, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { fetchMovie } from 'services/api';
 import { BiSearchAlt } from 'react-icons/bi';
-import { useFetchMovies } from 'hooks/useFetchMovies';
 
 import {
   Film,
@@ -19,17 +19,23 @@ import {
 } from './MoviePage.styled';
 
 const MoviesPage = () => {
+  const [searchQuery, setSearchQuery] = useSearchParams('');
+  const searchQueryGet = searchQuery.get('query');
+
   const [inputValue, setInputValue] = useState('');
   const [responseFilm, setResponseFilm] = useState([]);
 
-  const [searchQuery, setSearchQuery] = useFetchMovies(
-    '',
-    setResponseFilm,
-    setInputValue
-  );
-  const searchQueryGet = searchQuery.get('query');
-
   const location = useLocation();
+
+  useEffect(() => {
+    if (!searchQueryGet) {
+      return;
+    }
+    fetchMovie(searchQueryGet).then(({ results }) => {
+      setResponseFilm(results);
+      setInputValue(searchQueryGet);
+    });
+  }, [searchQueryGet]);
 
   const handleSubmit = event => {
     event.preventDefault();

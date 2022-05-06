@@ -1,10 +1,17 @@
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useFetchMovieDetails } from 'hooks/useFetchMovieDetails';
+import { fetchMovieDetails } from '../../services/api';
 
 const Reviews = () => {
   const { movieId } = useParams();
-  const [filmReviews] = useFetchMovieDetails([], movieId, 'reviews');
+  const [filmReviews, setFilmReviews] = useState([]);
 
+  useEffect(() => {
+    fetchMovieDetails(movieId, 'reviews').then(({ results }) => {
+      setFilmReviews(results);
+    });
+  }, [movieId]);
+  console.log(filmReviews);
   return (
     <>
       {filmReviews.length > 0 ? (
